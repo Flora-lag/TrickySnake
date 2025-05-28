@@ -129,7 +129,7 @@ Scooring:
 🍓 Strawberry (Salmon triangle) = +2 points, +2 body segments  
 🥭 Mango (DarkGold Polygon) = doubles both score and snake length  
 🍋 Lemon (LightLemon Halfcut Circle) = halves both score and snake length  
-🪨 Rock (LightGrey Rectangle) = snake shrinks to only the head and the game is over
+🪨 Rock (DarkGrey Rectangle) = snake shrinks to only the head and the game is over
 
  If a Lemon or Rock is not eaten within 20 seconds, a new fruit will spawn.  
 ⚡ The game speeds up every time your score increases by 25.

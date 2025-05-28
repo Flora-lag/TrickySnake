@@ -52,7 +52,7 @@ namespace TrickySnake
 
                 case "Rock":
                     Shape.AddRectangle(new Rectangle(0, 0, w, h));
-                    return Brushes.SteelBlue;
+                    return Brushes.DarkGray;
 
                 default:
                     return Brushes.LightGray;
