@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+
 
 namespace TrickySnake
 {
@@ -6,9 +7,7 @@ namespace TrickySnake
     {
         private int x, y;
         public int X { get { return x; } set { x = value; } }
-        public int Y { get { return y;} set { y = value; } }
-
-        
+        public int Y { get { return y; } set { y = value; } }
 
         public Field(int x, int y)
         {
@@ -20,7 +19,7 @@ namespace TrickySnake
             x = 0;
             y = 0;
         }
-        
+
         public override bool Equals(object obj)
         {
             if (obj == null || !GetType().Equals(obj.GetType()))

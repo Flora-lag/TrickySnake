@@ -36,6 +36,8 @@
             this.score = new System.Windows.Forms.Label();
             this.record = new System.Windows.Forms.Label();
             this.timer = new System.Windows.Forms.Timer(this.components);
+            this.GameOverrText = new System.Windows.Forms.Label();
+            this.speedIncrease = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.gameCanvas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -117,14 +119,46 @@
             // 
             // timer
             // 
-            this.timer.Interval = 40;
+            this.timer.Interval = 200;
             this.timer.Tick += new System.EventHandler(this.timerEvent);
+            // 
+            // GameOverrText
+            // 
+            this.GameOverrText.AccessibleDescription = "The game is over";
+            this.GameOverrText.AutoSize = true;
+            this.GameOverrText.Font = new System.Drawing.Font("Microsoft YaHei UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.GameOverrText.ForeColor = System.Drawing.Color.Firebrick;
+            this.GameOverrText.Location = new System.Drawing.Point(323, 641);
+            this.GameOverrText.Name = "GameOverrText";
+            this.GameOverrText.Size = new System.Drawing.Size(145, 30);
+            this.GameOverrText.TabIndex = 6;
+            this.GameOverrText.Text = "Game Over!";
+            this.GameOverrText.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.GameOverrText.Visible = false;
+            this.GameOverrText.Click += new System.EventHandler(this.label1_Click_1);
+            // 
+            // speedIncrease
+            // 
+            this.speedIncrease.AccessibleDescription = "The speed is increasing";
+            this.speedIncrease.AutoSize = true;
+            this.speedIncrease.BackColor = System.Drawing.Color.SeaGreen;
+            this.speedIncrease.Font = new System.Drawing.Font("Microsoft YaHei UI", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.speedIncrease.ForeColor = System.Drawing.Color.DarkRed;
+            this.speedIncrease.Location = new System.Drawing.Point(285, 283);
+            this.speedIncrease.Name = "speedIncrease";
+            this.speedIncrease.Size = new System.Drawing.Size(286, 45);
+            this.speedIncrease.TabIndex = 7;
+            this.speedIncrease.Text = "Speed increase !";
+            this.speedIncrease.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.speedIncrease.Visible = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(902, 808);
+            this.Controls.Add(this.speedIncrease);
+            this.Controls.Add(this.GameOverrText);
             this.Controls.Add(this.record);
             this.Controls.Add(this.score);
             this.Controls.Add(this.gameCanvas);
@@ -150,6 +184,8 @@
         private System.Windows.Forms.Label score;
         private System.Windows.Forms.Label record;
         private System.Windows.Forms.Timer timer;
+        private System.Windows.Forms.Label GameOverrText;
+        private System.Windows.Forms.Label speedIncrease;
     }
 }
 

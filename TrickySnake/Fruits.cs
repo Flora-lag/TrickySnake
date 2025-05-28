@@ -32,7 +32,7 @@ namespace TrickySnake
             if (maxWidth <= 2 || maxHeight <= 2)
                 return new Field(5, 5);
 
-            return new Field(rand.Next(2, maxWidth), rand.Next(2, maxHeight));
+            return new Field(rand.Next(1, maxWidth), rand.Next(1, maxHeight));
         }
         private Brush CreateShape()
         {//for the even sizes
