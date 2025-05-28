@@ -131,7 +131,15 @@ namespace TrickySnake
                 if (snakeBody.Count > 1)
                 {
                     snakeBody.RemoveAt(snakeBody.Count - 1);
+
+                    if (scores > 0)
+                        scores -= 1; 
+                    if (snakeBody.Count == 1 && scores == 0)
+                        gameOver();
                 }
+                else if (snakeBody.Count == 1 && scores == 0)
+                    gameOver();
+                
                 fruit = fruitTypes();
                 fspawnTime = DateTime.Now;
 
