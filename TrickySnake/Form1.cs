@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -14,9 +11,9 @@ namespace TrickySnake
 {
     public partial class Form1 : Form
     {
-        private List<Field> snakeBody= new List<Field>();
+        private List<Field> snakeBody = new List<Field>();
         private Fruits fruit;
-        int maxWidth, maxHeight, scores, highscore,currentSpeed;
+        int maxWidth, maxHeight, scores, highscore, currentSpeed;
         Random rand = new Random();
         private Moving movement;
         private DateTime fspawnTime;
@@ -32,7 +29,7 @@ namespace TrickySnake
             timer.Interval = 200;
             new GameSettings();
         }
-        private void label1_Click(object sender, EventArgs e){}
+        private void label1_Click(object sender, EventArgs e) { }
 
         private void downKey(object sender, KeyEventArgs e)
         {
@@ -40,7 +37,7 @@ namespace TrickySnake
             switch (e.KeyCode)
             {
                 case Keys.A:
-                   if(movement != Moving.Right) movement = Moving.Left;
+                    if (movement != Moving.Right) movement = Moving.Left;
                     break;
                 case Keys.D:
                     if (movement != Moving.Left) movement = Moving.Right;
@@ -54,7 +51,7 @@ namespace TrickySnake
             }
         }
 
-        private void upKey(object sender, KeyEventArgs e){}
+        private void upKey(object sender, KeyEventArgs e) { }
 
         private void startGame(object sender, EventArgs e)
         {
@@ -102,13 +99,13 @@ namespace TrickySnake
         }
         private void restartGame(object sender, EventArgs e) { resetGame(); }
         private void timerEvent(object sender, EventArgs e)
-        {     
+        {
             int speed = scores / 25;
-           
+
             Field head = snakeBody[0];
             Field tail = new Field(snakeBody[snakeBody.Count - 1].X, snakeBody[snakeBody.Count - 1].Y);
-            
-            for (int i = snakeBody.Count - 1; i > 0; i--) 
+
+            for (int i = snakeBody.Count - 1; i > 0; i--)
             {
                 snakeBody[i].X = snakeBody[i - 1].X;
                 snakeBody[i].Y = snakeBody[i - 1].Y;
@@ -120,17 +117,17 @@ namespace TrickySnake
 
             if (snakeBody.Skip(1).Any(part => part.Equals(head)))
                 gameOver();
-           
+
             if (head.X == fruit.Position.X && head.Y == fruit.Position.Y)
                 snakeEat();
-            else if(positiveFruit != null && head.X == positiveFruit.Position.X && head.Y == positiveFruit.Position.Y)
+            else if (positiveFruit != null && head.X == positiveFruit.Position.X && head.Y == positiveFruit.Position.Y)
             {
                 fruit = positiveFruit;
                 snakeEat();
             }
 
             if (!isfirst && (DateTime.Now - fspawnTime).TotalSeconds >= 20)
-            {              
+            {
                 if (snakeBody.Count > 1)
                 {
                     snakeBody.RemoveAt(snakeBody.Count - 1);
@@ -152,7 +149,7 @@ namespace TrickySnake
                 hideText();
             }
 
-            gameCanvas.Invalidate();   
+            gameCanvas.Invalidate();
         }
         private async void hideText()
         {
@@ -160,36 +157,36 @@ namespace TrickySnake
             speedIncrease.Visible = false;
         }
         private void gameEvent(object sender, PaintEventArgs e)
-        {   
+        {
             Graphics canvas = e.Graphics; //linking the e paint event to the canvas
             if (fruit?.Position == null)
                 return;
 
-            Matrix transf= new Matrix();
-            
+            Matrix transf = new Matrix();
+
             transf.Translate(fruit.Position.X * GameSettings.Width, fruit.Position.Y * GameSettings.Height);
             Brush snake;
 
-            for (int i = 0; i < snakeBody.Count; i++) 
+            for (int i = 0; i < snakeBody.Count; i++)
             {
-                if (i == 0) 
-                    snake = Brushes.AliceBlue;                
-                else                 
+                if (i == 0)
+                    snake = Brushes.AliceBlue;
+                else
                     snake = Brushes.DarkGreen;
 
-                canvas.FillEllipse(snake,new Rectangle(
+                canvas.FillEllipse(snake, new Rectangle(
                         snakeBody[i].X * GameSettings.Width,
                         snakeBody[i].Y * GameSettings.Height,
                         GameSettings.Width, GameSettings.Height
                     ));
 
             }
-            GraphicsPath path=(GraphicsPath)fruit.Shape.Clone();
+            GraphicsPath path = (GraphicsPath)fruit.Shape.Clone();
             path.Transform(transf);
             canvas.FillPath(fruit.Color, path);
 
             //second positive fruit drawing
-            if(positiveFruit != null )
+            if (positiveFruit != null)
             {
                 Matrix positTransf = new Matrix();
                 positTransf.Translate(positiveFruit.Position.X * GameSettings.Width, positiveFruit.Position.Y * GameSettings.Height);
@@ -200,14 +197,14 @@ namespace TrickySnake
         }
         private void snakeEat()
         {
-            scores=fruit.ScoreEffect(scores);
+            scores = fruit.ScoreEffect(scores);
             score.Text = "Score: " + scores;
             if (scores == 0)
             {
                 gameOver();
             }//the body growth should depend on the fruit's value
             string fruitCount = fruit.Type;
-            switch (fruitCount) 
+            switch (fruitCount)
             {
                 case "Apple":
                     addTail(1);
@@ -219,15 +216,15 @@ namespace TrickySnake
                     int length = snakeBody.Count;
                     int add = length == 1 ? 1 : length;
                     addTail(add);
-                    break;       
+                    break;
                 case "Lemon":
                     int snakeLength = snakeBody.Count / 2;
-                   snakeBody=snakeBody.Take(snakeLength+1).ToList();
+                    snakeBody = snakeBody.Take(snakeLength + 1).ToList();
                     break;
                 case "Rock":
-                    snakeBody=snakeBody.Take(1).ToList();
+                    snakeBody = snakeBody.Take(1).ToList();
                     break;
-            } 
+            }
             fruit = fruitTypes();
             fspawnTime = DateTime.Now;
             isfirst = false;
@@ -240,7 +237,7 @@ namespace TrickySnake
             gameScreenshot.Enabled = true;
             GameOverrText.Visible = true;
 
-            if(scores > highscore) 
+            if (scores > highscore)
             {
                 highscore = scores;
                 record.Text = "Record : " + highscore;
@@ -283,7 +280,7 @@ namespace TrickySnake
         private Fruits positiveFruitGen(Fruits mainFruit)
         {
             //if it generates an "negative" fruit, then it has to generate an "positive" fruit as well
-            
+
             if (mainFruit.Type == "Rock" || mainFruit.Type == "Lemon")
             {
 

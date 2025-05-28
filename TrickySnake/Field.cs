@@ -1,6 +1,3 @@
-using System;
-
-
 namespace TrickySnake
 {
     internal class Field
@@ -26,6 +23,16 @@ namespace TrickySnake
                 return false;
             Field one = (Field)obj;
             return x == one.x && y == one.y;
+        }
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 17;
+                hash = hash * 23 + x.GetHashCode();
+                hash = hash * 23 + y.GetHashCode();
+                return hash;
+            }
         }
         public void movementManage(Moving move)
         {

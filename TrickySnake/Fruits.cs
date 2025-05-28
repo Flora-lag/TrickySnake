@@ -1,31 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TrickySnake
 {//5 types of friuts:apple+1,mango*2,lemon?/2,strawberry+2,rock-game over
     internal class Fruits
     {
-
         public string Type { get; set; }
-      
+
         public GraphicsPath Shape { get; set; }
         public Field Position { get; set; }
 
         public Brush Color { get; set; }
 
-        public Fruits(string type,int maxWidth,int maxHeight,Random rand)
-        {   
+        public Fruits(string type, int maxWidth, int maxHeight, Random rand)
+        {
             Type = type;
-            Shape =new GraphicsPath(); 
-            Color= CreateShape();
-            Position=RandomPosition(maxWidth, maxHeight,rand);
-
-            
+            Shape = new GraphicsPath();
+            Color = CreateShape();
+            Position = RandomPosition(maxWidth, maxHeight, rand);
         }
         private Field RandomPosition(int maxWidth, int maxHeight, Random rand)
         {
@@ -36,25 +29,25 @@ namespace TrickySnake
         }
         private Brush CreateShape()
         {//for the even sizes
-            int w=GameSettings.Width;
-            int h=GameSettings.Height;
-            
+            int w = GameSettings.Width;
+            int h = GameSettings.Height;
+
             switch (Type)
             {
                 case "Apple":
                     Shape.AddEllipse(0, 0, w, h);
                     return Brushes.DarkRed;
                 case "Mango":
-                    Shape.AddBezier(new Point(0, h/2), new Point(w/2, h), new Point(w-5, h), new Point(w, h/2));
+                    Shape.AddBezier(new Point(0, h / 2), new Point(w / 2, h), new Point(w - 5, h), new Point(w, h / 2));
                     return Brushes.DarkGoldenrod;
 
                 case "Strawberry":
-                    Point[] triangle = { new Point(w/2, 0), new Point(0, h), new Point(w, h) };
+                    Point[] triangle = { new Point(w / 2, 0), new Point(0, h), new Point(w, h) };
                     Shape.AddPolygon(triangle);
                     return Brushes.DarkSalmon;
 
                 case "Lemon":
-                    Shape.AddEllipse(w/4, 0, w*3/4, h/2);
+                    Shape.AddEllipse(w / 4, 0, w * 3 / 4, h / 2);
                     return Brushes.LemonChiffon;
 
                 case "Rock":
@@ -64,7 +57,6 @@ namespace TrickySnake
                 default:
                     return Brushes.LightGray;
             }
-           
         }
         public int ScoreEffect(int score)
         {
@@ -82,8 +74,6 @@ namespace TrickySnake
                     return 0;
                 default:
                     return score;
-                
-
             }
         }
     }
